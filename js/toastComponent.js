@@ -12,11 +12,10 @@ export const createToast = function (type, message, closable) {
         <span>${message}</span>
     </div>
     ${
-      closable
-        ? `<button class="toast-close">
+      closable ?
+      `<button class="toast-close">
         <i class="fa-solid fa-xmark"></i>
-    </button>`
-        : ""
+    </button>` : ""
     }
   `;
 
