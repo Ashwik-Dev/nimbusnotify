@@ -1,6 +1,6 @@
 export const config = {
   position: "bottom-center",
-  duration: 20,
+  duration: 6,
   maxToasts: 3,
   maxQueue: 5,
   closable: true,
