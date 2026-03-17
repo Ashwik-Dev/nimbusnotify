@@ -42,15 +42,47 @@ section {
 }
 
 .toast-box {
-  position: absolute;
-  bottom: 30px;
-  right: 30px;
+  position: fixed;
+  /* bottom: 30px;
+  right: 30px; */
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 20px;
   padding: 20px;
   overflow: hidden;
+}
+
+.toast-box.bottom-right {
+  bottom: 30px;
+  right: 30px;
+}
+
+.toast-box.bottom-left {
+  bottom: 30px;
+  left: 30px;
+}
+
+.toast-box.bottom-center {
+  bottom: 30px;
+  right: 600px;
+  left: 450px;
+}
+
+.toast-box.top-right {
+  top: 30px;
+  right: 30px;
+}
+
+.toast-box.top-left {
+  top: 30px;
+  left: 30px;
+}
+
+.toast-box.top-center {
+  top: 30px;
+  left: 450px;
+  right: 600px;
 }
 
 .toast {
@@ -78,6 +110,10 @@ section {
 
 .toast.success {
   color: green;
+}
+
+.toast.info {
+  color: blue;
 }
 
 .toast.hide {

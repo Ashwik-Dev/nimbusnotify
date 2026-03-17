@@ -8,6 +8,9 @@ const icons = {
 };
 
 const MAX_VISIBLE_TOASTS = 3;
+const MAX_QUEUE_TOASTS = 5;
+
+const toastQueue = [];
 
 const createToast = function (type, message) {
   const markup = `
@@ -35,6 +38,11 @@ const removeToast = function (toast) {
     "animationend",
     () => {
       toast.remove();
+
+      if (toastQueue.length > 0) {
+        const nextToast = toastQueue.shift();
+        renderToast(nextToast);
+      }
     },
     { once: true },
   );
@@ -47,15 +55,25 @@ const scheduleRemoval = function (toast, duration) {
 };
 
 const showToast = function (type, message, duration = 6) {
+  const toastData = { type, message, duration };
+
+  if (toastQueue.length >= MAX_QUEUE_TOASTS) return;
+
+  if (toastBox.children.length >= MAX_VISIBLE_TOASTS) {
+    // clearTimeout(oldToast.timerId);
+    // removeToast(oldToast);
+    toastQueue.push(toastData);
+    return;
+  }
+
+  renderToast(toastData);
+};
+
+const renderToast = function (toastData) {
+  const { type, message, duration } = toastData;
+
   const toast = createToast(type, message);
   toast.style.setProperty("--toast-duration", `${duration}s`);
-
-  const oldToast = toastBox.firstElementChild;
-
-  if (toastBox.children.length === MAX_VISIBLE_TOASTS && oldToast) {
-    clearTimeout(oldToast.timerId);
-    removeToast(oldToast);
-  }
 
   toastBox.appendChild(toast);
 
